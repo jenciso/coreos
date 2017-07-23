@@ -5,12 +5,18 @@ ssh_authorized_keys:
 - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDSNO0Wj55VPAP7O3gUmJUBar2dNKNwJ2sUKWFI1sKT5nVDmxzDsHSWGkqzdAdeIkBjn9SzHQCCuSlVjnDL3CmiW53kowS5hAlCQ9xzZrds5Pnd9GcW4ASpNzBAxuGL2TEDlBlAClku9CXUS6Ni7aJFbM/HXJbhRXCkDQqiiHtGX0TkAVZlUUcxEN580SEvjDHVLLz65zC79Hr5bhz44qPvpKtWEJnjbpH6tEvZ46/QLuCfP8Z/8c4Lf03xwFGr+ZPsYQ4BOr1J1fB3Fv2IsYUHq6AvFzZYkgMM27nb3cGho/PnGEImJXLJZm0z+MEl+2N7goFwzPjpsHDB2GQdO2bd root@mgmt01.iplanet.work
 
 coreos:
-  etcd:
+  etcd2:
     discovery: https://discovery.etcd.io/4e0b6e239c3fcd0f8280f171abeae1f2
-    addr: 192.168.1.130:4001
-    peer-addr: 192.168.1.130:7001
+    advertise-client-urls: http://192.168.1.130:2379
+    initial-advertise-peer-urls: http://192.168.1.130:2380
+    listen-client-urls: http://0.0.0.0:2379,http://0.0.0.0:4001
+    listen-peer-urls: http://192.168.1.130:2380,http://192.168.1.130:7001
+  fleet:
+    public-ip: 192.168.1.130
+  flannel:
+    interface: 192.168.1.130
   units:
-    - name: etcd.service
+    - name: etcd2.service
       command: start
     - name: fleet.service
       command: start
