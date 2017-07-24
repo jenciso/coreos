@@ -29,3 +29,13 @@ coreos:
        Address=192.168.1.130/24
        Gateway=192.168.1.1
        DNS=8.8.8.8
+    - name: settimezone.service
+      command: start
+      content: |
+        [Unit]
+        Description=Set the time zone
+
+        [Service]
+        ExecStart=/usr/bin/timedatectl set-timezone America/Sao_Paulo
+        RemainAfterExit=yes
+        Type=oneshot
